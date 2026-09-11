@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Займы иностранным гражданам онлайн на карту — Zaim.online</title>
+<meta name="description" content="Zaim.online — подборка МФО, выдающих займы иностранным гражданам и нерезидентам РФ. Сравните сумму, срок, ставку и ПСК.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="logo" href="#"><b>Zaim.online</b><small>информационный портал</small></a>
+    <div class="header__right">
+      <button class="pill pill--city" id="cityBtn">📍 <span id="city"></span></button>
+      <button class="pill pill--menu" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="panel intro">
+    <h1 id="pageTitle"></h1>
+    <p class="intro__meta"><span class="dot"></span> обновлено сегодня · <span id="metaText"></span></p>
+    <p class="intro__desc">Займы для иностранных граждан подойдут тем, кто хочет подобрать предложение с учетом своего статуса и заранее посмотреть доступные условия оформления. В этой подборке удобно сравнить варианты МФО по сумме и сроку, чтобы выбрать займ с понятными требованиями и подать заявку.</p>
+
+    <details class="filter">
+      <summary>Сумма и срок <span class="chev">⌄</span></summary>
+      <div class="filter__body">
+        <label>Сумма <b><span id="sumVal">10 000</span> ₽</b>
+          <input type="range" id="sum" min="1000" max="100000" step="500" value="10000"></label>
+        <label>Срок <b><span id="daysVal">14</span> дн.</b>
+          <input type="range" id="days" min="1" max="365" value="14"></label>
+        <div class="filter__btns"><button class="btn btn--primary" id="apply">Показать</button><button class="btn btn--ghost" id="reset">Сбросить</button></div>
+      </div>
+    </details>
+    <p class="intro__term">Срок — до <b id="untilDate"></b> · условия на карточке МФО</p>
+
+    <div class="chips-scroll">
+      <div class="chips" id="chips">
+        <a href="#" data-f="new">Новые МФО</a><a href="#" data-f="payday">До зарплаты</a><a href="#" data-f="badki">С плохой КИ</a>
+        <a href="#" data-f="noref">Без отказа</a><a href="#" data-f="nocheck">Без проверки</a><a href="#" data-f="free">Беспроцентные</a>
+        <a href="#" data-f="gos">Через Госуслуги</a><a href="#" data-f="fast">Срочные займы</a><a href="#" data-f="noki">Без кредитной истории</a>
+      </div>
+    </div>
+
+    <div class="listbar">
+      <span>Показано <b id="count"></b></span>
+      <select id="sort" class="select">
+        <option value="default">По популярности</option>
+        <option value="maxSum">По сумме займа</option>
+        <option value="rate">По процентной ставке</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="panel cta">
+    <h2>Не подошло ни одно предложение?</h2>
+    <p>Оставьте одну заявку — её увидят сразу несколько компаний. На первом шаге нужен только номер телефона.</p>
+    <a class="btn btn--primary btn--wide" id="ctaBtn" href="#">Подобрать по анкете</a>
+  </section>
+
+  <section class="panel note">Данные о ставках и условиях микрозаймов предоставлены микрофинансовыми организациями или получены из официальных открытых источников. Рекомендуем уточнять актуальные условия напрямую в МФО или по телефонам справочных служб.<br><small>Последнее обновление: <span id="updated"></span></small></section>
+
+  <section class="panel">
+    <h2>Популярные виды займов</h2>
+    <div class="chips chips--wrap">
+      <a href="#">Займ онлайн</a><a href="#">Деньги по паспорту</a><a href="#">На карту онлайн</a><a href="#">На большую сумму</a><a href="#">Экспресс</a><a href="#">Без процентов</a><a href="#">Займы по акции</a><a href="#">На карту</a><a href="#">Наличными</a><a href="#">До зарплаты</a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Топ МФО: займы для иностранных граждан</h2>
+    <div class="table-wrap">
+      <table class="top">
+        <thead><tr><th>№</th><th>Компания</th><th>ПСК</th><th>Ставка</th><th>Срок</th><th>Сумма</th></tr></thead>
+        <tbody id="topBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel article">
+    <h2>Кто выдаёт займы иностранным гражданам: условия и документы</h2>
+    <p>Ниже — только компании, которые сами заявляют займы для граждан стран СНГ. Условия взяты с их сайтов и могут меняться — перед заявкой проверьте их на сайте кредитора.</p>
+    <ul id="whoList"></ul>
+    <p><b>Что обычно просят у иностранного гражданина:</b> паспорт или ID-карта своей страны (часто — загранпаспорт), миграционная карта, уведомление о постановке на миграционный учёт, российский номер телефона и карта российского банка. Трудовой патент нужен не у всех кредиторов, а гражданам стран ЕАЭС — Кыргызстана, Казахстана, Армении и Беларуси — патент для работы в России не требуется.</p>
+
+    <h3>Кто может получить займ в России</h3>
+    <p>Микрозайм иностранному гражданину доступен при наличии паспорта, законного основания для пребывания в РФ, мобильного телефона и способа получения денег. Чаще всего МФО рассматривают заявки при наличии ВНЖ, РВП, миграционного учета и карты российского банка на имя заемщика. Заявки подают граждане Казахстана, Беларуси, Армении, Кыргызстана, Таджикистана, Узбекистана, Азербайджана, Молдовы и других стран СНГ.</p>
+    <h3>Какие документы могут понадобиться</h3>
+    <p>Основной документ — паспорт иностранного гражданина. Также могут понадобиться ВНЖ, РВП, миграционный учет, виза, ИНН РФ, патент на работу, данные карты российского банка. Точный список зависит от суммы займа и правил конкретной компании.</p>
+    <h3>Как получить займ иностранному гражданину</h3>
+    <ol>
+      <li>Выберите МФО, которая рассматривает заявки иностранных граждан.</li>
+      <li>Проверьте требования к документам: паспорт, ВНЖ, РВП, миграционный учет, карту российского банка.</li>
+      <li>Укажите сумму, срок займа и удобный способ получения денег.</li>
+      <li>Заполните анкету: ФИО, гражданство, паспортные данные, адрес, телефон, доход.</li>
+      <li>Дождитесь решения и получите деньги на карту или наличными.</li>
+    </ol>
+  </section>
+
+  <section class="panel faq">
+    <h2>Вопросы и ответы</h2>
+    <details><summary>Можно ли получить займ без патента?</summary><p>Да, у части МФО патент не требуется. Гражданам стран ЕАЭС патент не нужен вообще.</p></details>
+    <details><summary>Нужна ли карта российского банка?</summary><p>В большинстве случаев да. Некоторые МФО выдают наличными в офисах или через системы переводов.</p></details>
+    <details><summary>Что такое ПСК?</summary><p>Полная стоимость кредита в процентах годовых — включает проценты и все обязательные платежи. По закону не может превышать 292% годовых.</p></details>
+  </section>
+
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__box">
+    <button class="modal__close" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer class="footer"><div class="container">© <span id="year"></span> Zaim.online · Информационный портал. Сайт не выдаёт займы и не является финансовой организацией.</div></footer>
+
+<script src="offers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
