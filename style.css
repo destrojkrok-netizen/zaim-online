@@ -6,8 +6,20 @@ a{color:inherit;text-decoration:none}h1,h2,h3{margin:0 0 10px;font-weight:700;le
 .header{background:var(--panel);box-shadow:0 1px 0 var(--line);position:sticky;top:0;z-index:20}
 .header__inner{display:flex;align-items:center;justify-content:space-between;height:58px}
 .logo{display:flex;flex-direction:column;line-height:1.1}.logo b{font-size:22px;font-weight:800}.logo small{font-size:11px;color:var(--muted)}
-.header__right{display:flex;gap:8px}
-.pill{border:0;background:var(--chip);border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;color:var(--text)}
+.header__right{display:flex;gap:10px;align-items:center}
+.icon-btn{border:0;background:none;padding:8px;cursor:pointer;color:var(--text);display:flex}
+.city,.menu{position:relative}
+.pill--city{display:flex;align-items:center;gap:6px;padding:12px 18px;font-size:16px}
+.pill--menu{padding:11px 14px;display:flex}
+.dropdown{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(20,28,50,.18);width:260px;padding:10px;z-index:30}
+.dropdown[hidden]{display:none}
+.dropdown input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;margin-bottom:6px;outline:none}
+.dropdown input:focus{border-color:var(--blue)}
+.dropdown ul{list-style:none;margin:0;padding:0;max-height:320px;overflow-y:auto}
+.dropdown li{padding:9px 12px;border-radius:8px;cursor:pointer;font-size:15px}
+.dropdown li:hover{background:var(--chip)}.dropdown li.sel{color:var(--blue);font-weight:600}
+.dropdown--menu{width:200px}.dropdown--menu a{display:block;padding:10px 12px;border-radius:8px;font-weight:500}.dropdown--menu a:hover{background:var(--chip)}
+.pill{border:0;background:var(--chip);border-radius:14px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;color:var(--text)}
 .pill--menu{font-size:18px;padding:6px 14px}
 .panel{background:var(--panel);border-radius:var(--r);padding:20px;margin:12px 0}
 .intro__meta{font-size:13px;color:var(--muted);margin:0 0 10px;display:flex;align-items:center;gap:6px}
