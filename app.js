@@ -7,9 +7,9 @@ $("#city").textContent = SITE.city;
 $("#pageTitle").textContent = SITE.title;
 $("#year").textContent = new Date().getFullYear();
 $("#ctaBtn").href = SITE.promoUrl;
-const mn = Math.min(...OFFERS.map(o=>o.minSum)), mx = Math.max(...OFFERS.map(o=>o.maxSum));
+const mn = OFFERS.length ? Math.min(...OFFERS.map(o=>o.minSum)) : 0, mx = OFFERS.length ? Math.max(...OFFERS.map(o=>o.maxSum)) : 0;
 const free = OFFERS.filter(o=>o.freeDays).length;
-$("#metaText").textContent = `${OFFERS.length} ${plural(OFFERS.length,"предложение","предложения","предложений")} МФО, суммы от ${fmt(mn)} до ${fmt(mx)} ₽, ${free} ${plural(free,"предложение","предложения","предложений")} с первым займом под 0%.`;
+$("#metaText").textContent = !OFFERS.length ? "предложения скоро появятся" : `${OFFERS.length} ${plural(OFFERS.length,"предложение","предложения","предложений")} МФО, суммы от ${fmt(mn)} до ${fmt(mx)} ₽, ${free} ${plural(free,"предложение","предложения","предложений")} с первым займом под 0%.`;
 const d = new Date(); d.setDate(d.getDate()+30);
 $("#untilDate").textContent = d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
 $("#updated").textContent = new Date().toLocaleDateString("ru-RU") + " " + new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
@@ -32,7 +32,7 @@ function card(o,i){
   </article>`;
 }
 function render(){
-  $("#grid").innerHTML = list.map(o=>card(o, OFFERS.indexOf(o))).join("");
+  $("#grid").innerHTML = list.length ? list.map(o=>card(o, OFFERS.indexOf(o))).join("") : `<div class="panel empty">Пока нет подходящих предложений. Загляните позже или оставьте заявку ниже.</div>`;
   $("#count").textContent = list.length;
 }
 $("#grid").onclick = e=>{
@@ -66,6 +66,7 @@ $("#chips").onclick = e=>{
   render();
 };
 
+$("#topSection").hidden = $("#whoSection").hidden = !OFFERS.length;
 $("#topBody").innerHTML = [...OFFERS].map((o,i)=>`<tr><td>${i+1}</td><td>${o.name}</td><td>${o.psk||"—"}</td><td>${o.rate||"—"}</td><td>от ${o.minDays} до ${o.maxDays} дней</td><td>от ${fmt(o.minSum)} до ${fmt(o.maxSum)} ₽</td></tr>`).join("");
 $("#whoList").innerHTML = OFFERS.filter(o=>o.desc).map(o=>`<li><b>${o.name}</b> — ${o.desc}</li>`).join("");
 render();
