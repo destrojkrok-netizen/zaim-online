@@ -30,6 +30,7 @@ $("#updated").textContent = new Date().toLocaleDateString("ru-RU") + " " + new D
 
 const term = o => o.maxDays >= 90 && o.minDays >= 30 ? `${Math.round(o.minDays/30)}–${Math.round(o.maxDays/30)} мес.` : `${o.minDays}–${o.maxDays} дн.`;
 const res = o => Array.isArray(o.residency) && o.residency.length ? o.residency : ["resident","nonresident"];
+const adMark = o => o.erid ? `<div class="card__ad">Реклама${o.advertiser?` · ${o.advertiser}`:""} · erid: ${o.erid}</div>` : "";
 const resLabel = o => { const r = res(o); return r.length > 1 ? "Гражданам РФ и иностранцам" : r[0] === "nonresident" ? "Иностранным гражданам" : "Гражданам РФ"; };
 
 function card(o,i){
@@ -45,7 +46,7 @@ function card(o,i){
       <div><small>Ставка</small><b>${o.rate||"—"}</b></div>
       <div><small>ПСК</small><b>${o.psk||"—"}</b></div>
     </div>
-    <div class="card__foot"><button class="card__info" data-i="${i}" title="Подробнее">i</button><a class="btn btn--primary" href="${o.url}" target="_blank" rel="nofollow noopener">Получить</a></div>
+    <div class="card__foot"><button class="card__info" data-i="${i}" title="Подробнее">i</button><a class="btn btn--primary" href="${o.url}" target="_blank" rel="nofollow noopener">Получить</a></div>${adMark(o)}
   </article>`;
 }
 function render(){
@@ -57,7 +58,7 @@ $("#grid").onclick = e=>{
   const o = OFFERS[b.dataset.i];
   $("#modalBody").innerHTML = `<h3>${o.name}</h3><p style="color:var(--muted);margin:0">${o.product||""}</p>
     <dl><dt>Сумма</dt><dd>${fmt(o.minSum)} – ${fmt(o.maxSum)} ₽</dd><dt>Срок</dt><dd>${term(o)}</dd><dt>Ставка</dt><dd>${o.rate||"—"}</dd><dt>ПСК</dt><dd>${o.psk||"—"}</dd><dt>Без %</dt><dd>${o.freeDays?o.freeDays+" дн.":"нет"}</dd><dt>Кому</dt><dd>${resLabel(o)}</dd></dl>
-    <p>${o.desc||""}</p><a class="btn btn--primary btn--wide" href="${o.url}" target="_blank" rel="nofollow noopener">Получить</a>`;
+    <p>${o.desc||""}</p><a class="btn btn--primary btn--wide" href="${o.url}" target="_blank" rel="nofollow noopener">Получить</a>${adMark(o)}`;
   $("#modal").hidden = false;
 };
 $("#modalClose").onclick = ()=> $("#modal").hidden = true;
