@@ -70,3 +70,8 @@ a{color:inherit;text-decoration:none}h1,h2,h3{margin:0 0 10px;font-weight:700;le
 @media(max-width:640px){.filter__body{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.panel{padding:16px}.logo small{display:none}}
 @media(max-width:420px){.grid{grid-template-columns:1fr}}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);margin:0}
+
+.segmented{display:flex;gap:4px;background:var(--chip);border-radius:12px;padding:4px;margin:0 0 14px;overflow-x:auto}
+.segmented button{flex:1;border:0;background:none;padding:10px 14px;border-radius:9px;font:inherit;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.segmented button.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(20,28,50,.12)}
+.card__tag{display:inline-block;font-size:11px;font-weight:600;color:var(--blue);background:#e8eeff;border-radius:7px;padding:3px 8px;margin-bottom:10px;align-self:flex-start}
