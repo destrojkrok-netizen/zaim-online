@@ -5,6 +5,10 @@
   "observability": {
     "enabled": true
   },
+  "routes": [
+    { "pattern": "zaimformigr.online", "custom_domain": true },
+    { "pattern": "www.zaimformigr.online", "custom_domain": true }
+  ],
   "assets": {
     "directory": "."
   }
