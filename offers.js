@@ -78,7 +78,8 @@ const OFFERS = [
     "rate": "0–0,8%",
     "psk": "до 292%",
     "desc": "Гражданам РФ от 18 лет по паспорту. Первый займ под 0% при возврате в срок. Деньги на карту за несколько минут, одобрение 91%.",
-    "url": "https://trkleads.ru/click/d6363c1d682b1b9977437f32dd14ff4b",
+    "url": "https://pxl.leads.su/click/d6363c1d682b1b9977437f32dd14ff4b?erid=2W5zFHdZCrU",
+    "erid": "2W5zFHdZCrU",
     "advertiser": "ООО МКК «Варенье Кредит»",
     "payout": "Кекас.ру RevShare [micro][sale], ID 11546"
   },
