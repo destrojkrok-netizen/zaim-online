@@ -118,3 +118,11 @@ $("#topSection").hidden = $("#whoSection").hidden = !OFFERS.length;
 $("#topBody").innerHTML = [...OFFERS].map((o,i)=>`<tr><td>${i+1}</td><td>${o.name}</td><td>${o.psk||"—"}</td><td>${o.rate||"—"}</td><td>от ${o.minDays} до ${o.maxDays} дней</td><td>от ${fmt(o.minSum)} до ${fmt(o.maxSum)} ₽</td></tr>`).join("");
 $("#whoList").innerHTML = OFFERS.filter(o=>o.desc).map(o=>`<li><b>${o.name}</b> — ${o.desc}</li>`).join("");
 applyFilters();
+
+// «Займы» в меню: показать все займы и проскроллить к списку
+$("#navLoans").onclick = e=>{
+  e.preventDefault();
+  menuDrop.hidden = true;
+  $('#resTabs [data-res="all"]').click();
+  $("#grid").scrollIntoView({behavior:"smooth", block:"start"});
+};
