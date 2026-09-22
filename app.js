@@ -6,17 +6,16 @@ let list = [...OFFERS];
 const CITIES = ["Архангельск","Астрахань","Барнаул","Белгород","Брянск","Владивосток","Владимир","Волгоград","Вологда","Воронеж","Екатеринбург","Иваново","Ижевск","Иркутск","Казань","Калининград","Калуга","Кемерово","Киров","Кострома","Краснодар","Красноярск","Курган","Курск","Липецк","Магнитогорск","Махачкала","Москва","Мурманск","Набережные Челны","Нижний Новгород","Нижний Тагил","Новокузнецк","Новосибирск","Омск","Оренбург","Орёл","Пенза","Пермь","Петрозаводск","Псков","Ростов-на-Дону","Рязань","Самара","Санкт-Петербург","Саранск","Саратов","Севастополь","Смоленск","Сочи","Ставрополь","Сургут","Тамбов","Тверь","Тольятти","Томск","Тула","Тюмень","Улан-Удэ","Ульяновск","Уфа","Хабаровск","Чебоксары","Челябинск","Череповец","Чита","Якутск","Ярославль"].sort((a,b)=>a.localeCompare(b,"ru"));
 let city = SITE.city; try { city = localStorage.getItem("city") || city; } catch(e){}
 $("#city").textContent = city;
-const cityDrop=$("#cityDrop"), menuDrop=$("#menuDrop");
+const cityDrop=$("#cityDrop");
 function renderCities(q=""){
   const qq=q.trim().toLowerCase();
   $("#cityList").innerHTML = CITIES.filter(c=>c.toLowerCase().includes(qq)).map(c=>`<li class="${c===city?"sel":""}">${c}</li>`).join("") || `<li style="color:var(--muted);cursor:default">Не найдено</li>`;
 }
-$("#cityBtn").onclick = e=>{ e.stopPropagation(); menuDrop.hidden=true; cityDrop.hidden=!cityDrop.hidden; if(!cityDrop.hidden){ $("#cityQ").value=""; renderCities(); $("#cityQ").focus(); } };
+$("#cityBtn").onclick = e=>{ e.stopPropagation(); cityDrop.hidden=!cityDrop.hidden; if(!cityDrop.hidden){ $("#cityQ").value=""; renderCities(); $("#cityQ").focus(); } };
 $("#cityQ").oninput = e=>renderCities(e.target.value);
 $("#cityList").onclick = e=>{ const li=e.target.closest("li"); if(!li||!CITIES.includes(li.textContent)) return; city=li.textContent; $("#city").textContent=city; try{localStorage.setItem("city",city)}catch(e){} cityDrop.hidden=true; };
-$("#menuBtn").onclick = e=>{ e.stopPropagation(); cityDrop.hidden=true; menuDrop.hidden=!menuDrop.hidden; };
-document.addEventListener("click", e=>{ if(!e.target.closest(".dropdown")){ cityDrop.hidden=true; menuDrop.hidden=true; } });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ cityDrop.hidden=true; menuDrop.hidden=true; } });
+document.addEventListener("click", e=>{ if(!e.target.closest(".dropdown")){ cityDrop.hidden=true; } });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ cityDrop.hidden=true; } });
 $("#searchBtn").onclick = ()=>{ const f=$(".filter"); f.open=true; f.scrollIntoView({behavior:"smooth"}); };
 function setIntro(res){
   const t = (SITE.tabs && SITE.tabs[res]) || { title: SITE.title, desc: "" };
@@ -119,10 +118,3 @@ $("#topBody").innerHTML = [...OFFERS].map((o,i)=>`<tr><td>${i+1}</td><td>${o.nam
 $("#whoList").innerHTML = OFFERS.filter(o=>o.desc).map(o=>`<li><b>${o.name}</b> — ${o.desc}</li>`).join("");
 applyFilters();
 
-// «Займы» в меню: показать все займы и проскроллить к списку
-$("#navLoans").onclick = e=>{
-  e.preventDefault();
-  menuDrop.hidden = true;
-  $('#resTabs [data-res="all"]').click();
-  $("#grid").scrollIntoView({behavior:"smooth", block:"start"});
-};
