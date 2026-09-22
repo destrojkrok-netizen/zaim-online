@@ -18,12 +18,18 @@ $("#menuBtn").onclick = e=>{ e.stopPropagation(); cityDrop.hidden=true; menuDrop
 document.addEventListener("click", e=>{ if(!e.target.closest(".dropdown")){ cityDrop.hidden=true; menuDrop.hidden=true; } });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ cityDrop.hidden=true; menuDrop.hidden=true; } });
 $("#searchBtn").onclick = ()=>{ const f=$(".filter"); f.open=true; f.scrollIntoView({behavior:"smooth"}); };
-$("#pageTitle").textContent = SITE.title;
+function setIntro(res){
+  const t = (SITE.tabs && SITE.tabs[res]) || { title: SITE.title, desc: "" };
+  $("#pageTitle").textContent = t.title;
+  $("#introDesc").textContent = t.desc;
+  const pool = OFFERS.filter(o => res === "all" || (Array.isArray(o.residency) && o.residency.length ? o.residency : ["resident","nonresident"]).includes(res));
+  const mn = pool.length ? Math.min(...pool.map(o=>o.minSum)) : 0, mx = pool.length ? Math.max(...pool.map(o=>o.maxSum)) : 0;
+  const free = pool.filter(o=>o.freeDays).length;
+  $("#metaText").textContent = !pool.length ? "предложения скоро появятся" : `${pool.length} ${plural(pool.length,"предложение","предложения","предложений")} МФО, суммы от ${fmt(mn)} до ${fmt(mx)} ₽, ${free} ${plural(free,"предложение","предложения","предложений")} с первым займом под 0%.`;
+}
+setIntro("all");
 $("#year").textContent = new Date().getFullYear();
 $("#ctaBtn").href = SITE.promoUrl;
-const mn = OFFERS.length ? Math.min(...OFFERS.map(o=>o.minSum)) : 0, mx = OFFERS.length ? Math.max(...OFFERS.map(o=>o.maxSum)) : 0;
-const free = OFFERS.filter(o=>o.freeDays).length;
-$("#metaText").textContent = !OFFERS.length ? "предложения скоро появятся" : `${OFFERS.length} ${plural(OFFERS.length,"предложение","предложения","предложений")} МФО, суммы от ${fmt(mn)} до ${fmt(mx)} ₽, ${free} ${plural(free,"предложение","предложения","предложений")} с первым займом под 0%.`;
 const d = new Date(); d.setDate(d.getDate()+30);
 $("#untilDate").textContent = d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
 $("#updated").textContent = new Date().toLocaleDateString("ru-RU") + " " + new Date().toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
@@ -85,6 +91,7 @@ $("#resTabs").onclick = e=>{
   const b = e.target.closest("button"); if(!b) return;
   [...b.parentNode.children].forEach(x=>x.classList.toggle("active", x===b));
   state.residency = b.dataset.res;
+  setIntro(state.residency);
   applyFilters();
 };
 $("#sort").onchange = e=>{ state.sort = e.target.value; applyFilters(); };
